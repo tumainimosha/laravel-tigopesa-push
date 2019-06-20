@@ -28,8 +28,16 @@ class TigopesaPushServiceProvider extends ServiceProvider
     public function register()
     {
         // Register facade
-        $this->app->singleton('tigopesa-push', function () {
-            return new TigopesaPush;
+        $this->app->instance('tigopesa-push', function () {
+            $service = new TigopesaPush;
+
+            $service->setUsername(config('tigopesa-push.username'))
+                ->setPassword(config('tigopesa-push.password'))
+                ->setBillerMsisdn(config('tigopesa-push.biller_msisdn'))
+                ->setTokenUrl(config('tigopesa-push.token_url'))
+                ->setBillPayUrl(config('tigopesa-push.bill_pay_url'));
+
+            return $service;
         });
     }
 

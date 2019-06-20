@@ -4,6 +4,11 @@ namespace Tumainimosha\TigopesaPush;
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class TigopesaPushFacade.
+ * @package Tumainimosha\TigopesaPush
+ * @method static postRequest (string $customerMsisdn, int $amount, string $txnId, $remarks = '')
+ */
 class TigopesaPushFacade extends Facade
 {
     /**
@@ -13,6 +18,6 @@ class TigopesaPushFacade extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'laravel-tigopesa-push';
+        return 'tigopesa-push';
     }
 }

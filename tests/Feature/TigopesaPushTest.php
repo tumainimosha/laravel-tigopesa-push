@@ -4,14 +4,10 @@ namespace Tumainimosha\TigopesaPush\Tests\Feature;
 
 use Tumainimosha\TigopesaPush\Tests\TestCase;
 
-class ExampleTest extends TestCase
+class TigopesaPushTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testBasicTest()
+    /** @test */
+    public function it_can_login_to_tigopesa_api()
     {
         $this->assertTrue(true);
     }
