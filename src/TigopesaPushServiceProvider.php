@@ -28,7 +28,7 @@ class TigopesaPushServiceProvider extends ServiceProvider
     public function register()
     {
         // Register facade
-        $this->app->instance('tigopesa-push', function () {
+        $this->app->singleton('tigopesa-push', function () {
             $service = new TigopesaPush;
 
             $service->setUsername(config('tigopesa-push.username'))

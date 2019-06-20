@@ -19,12 +19,14 @@ php artisan vendor:publish --provider="Tumainimosha\TigopesaPush\TigopesaPushSer
 
 ### Authentication
 
-Configure your api username and password in `.env` file as follows
+Configure your api parameters in `.env` file as follows. Substitute example values below with those provided to you at time of integration.
 
 ```dotenv
-TZ_TIGOPESA_PUSH_USERNAME=123123
-TZ_TIGOPESA_PUSH_PASSWORD=VeryStrongPasswd
-TZ_TIGOPESA_PUSH_BUSINESS_MSISDN=FooCompany
+TZ_TIGOPESA_PUSH_USERNAME=<your-username>
+TZ_TIGOPESA_PUSH_PASSWORD=<your-password>
+TZ_TIGOPESA_PUSH_BILLER_MSISDN=<your-biller-msisdn> # Should start with country code 255 followed by 9 digits. eg: 25565000111
+TZ_TIGOPESA_PUSH_GET_TOKEN_URL=<your-get-token-url>
+TZ_TIGOPESA_PUSH_BILL_PAY_URL=<your-biller-pay-url>
 
 Other configuration can be found in the config file published by this package. The options are well commented :)
 
@@ -42,7 +44,7 @@ vendor/bin/phpunit
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security
-If you discover any security-related issues, please email  instead of using the issue tracker.
+If you discover any security-related issues, please email instead of using the issue tracker.
 
 ## License
 The MIT License (MIT). Please see [License File](/LICENSE.md) for more information.

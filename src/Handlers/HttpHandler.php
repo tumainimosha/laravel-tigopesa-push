@@ -6,11 +6,22 @@ use GuzzleHttp\Client;
 
 class HttpHandler
 {
-    public function post(string $url, array $request, array $headers = []): array
+    /**
+     * @param string $url
+     * @param array $request
+     * @param array $headers
+     * @param bool $json Send request as json instead of form-url-encoded
+     * @return array
+     */
+    public function post(string $url, array $request, array $headers = [], bool $json = false): array
     {
-        $options = [
-            'json' => $request,
-        ];
+        $options = [];
+
+        if ($json) {
+            $options['json'] = $request;
+        } else {
+            $options['form_params'] = $request;
+        }
 
         if (!empty($headers)) {
             $options['headers'] = $headers;

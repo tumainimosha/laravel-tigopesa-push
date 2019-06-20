@@ -33,7 +33,7 @@
                 "Tumainimosha\\TigopesaPush\\TigopesaPushServiceProvider"
             ],
             "aliases": {
-                "Tumainimosha": "Tumainimosha\\TigopesaPush\\TigopesaPushFacade"
+                "TigopesaPushFacade": "Tumainimosha\\TigopesaPush\\TigopesaPushFacade"
             }
         }
     },

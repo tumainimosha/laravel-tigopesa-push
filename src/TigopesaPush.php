@@ -2,6 +2,7 @@
 
 namespace Tumainimosha\TigopesaPush;
 
+use Illuminate\Support\Str;
 use Tumainimosha\TigopesaPush\Exceptions\Exception;
 use Tumainimosha\TigopesaPush\Handlers\HttpHandler;
 
@@ -46,6 +47,8 @@ class TigopesaPush
     {
         $token = $this->getToken();
 
+        $customerMsisdn = $this->normalizeMsisdn($customerMsisdn);
+
         $headers = [
             'Authorization' => 'Bearer ' . $token['access_token'],
             'Username' => $this->username,
@@ -60,7 +63,7 @@ class TigopesaPush
             'Remarks' => $remarks,
         ];
 
-        $response = (new HttpHandler)->post($this->billPayUrl, $request, $headers);
+        $response = (new HttpHandler)->post($this->billPayUrl, $request, $headers, true);
 
         if (!isset($response['ResponseStatus']) || $response['ResponseStatus'] !== true) {
             throw Exception::billerPayError($response);
@@ -88,11 +91,6 @@ class TigopesaPush
         }
 
         throw Exception::authenticationError($response);
-    }
-
-    protected function pay()
-    {
-        $response = (new HttpHandler)->pay();
     }
 
     /**
@@ -148,5 +146,28 @@ class TigopesaPush
         $this->billPayUrl = $billPayUrl;
 
         return $this;
+    }
+
+    /**
+     * Ensures customerMsisdn always start with country code 255.
+     *
+     * @param string $customerMsisdn
+     * @return string
+     */
+    protected function normalizeMsisdn(string $customerMsisdn)
+    {
+        $str = $customerMsisdn;
+
+        // if number starts with '0' replace with '+255'
+        if (Str::startsWith($str, '0')) {
+            $str = Str::replaceFirst('0', '255', $str);
+        }
+
+        // if number starts with '255' replace with '+255'
+        if (Str::startsWith($str, '+255')) {
+            $str = Str::replaceFirst('+255', '255', $str);
+        }
+
+        return $str;
     }
 }
