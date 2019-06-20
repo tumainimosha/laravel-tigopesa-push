@@ -28,4 +28,17 @@ return [
      */
     'bill_pay_url' => env('TZ_TIGOPESA_PUSH_BILL_PAY_URL'),
 
+
+    /**
+     * Route path to receive tigopesa push callback
+     */
+    'callback_path' => '/api/tigopesa/callback',
+
+    /**
+     * Middleware applied to callback path
+     */
+    'callback_middleware' => [
+        'api',
+    ],
+
 ];

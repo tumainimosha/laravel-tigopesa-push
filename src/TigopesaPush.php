@@ -5,6 +5,7 @@ namespace Tumainimosha\TigopesaPush;
 use Illuminate\Support\Str;
 use Tumainimosha\TigopesaPush\Exceptions\Exception;
 use Tumainimosha\TigopesaPush\Handlers\HttpHandler;
+use Tumainimosha\TigopesaPush\Models\TigopesaPushTransaction as Transaction;
 
 class TigopesaPush
 {
@@ -68,6 +69,15 @@ class TigopesaPush
         if (!isset($response['ResponseStatus']) || $response['ResponseStatus'] !== true) {
             throw Exception::billerPayError($response);
         }
+
+        // save transaction to db
+        $transaction = Transaction::query()
+            ->create([
+                'reference' => $txnId,
+                'customer_msisdn' => $customerMsisdn,
+                'biller_msisdn' => $this->billerMsisdn,
+                'amount' => $amount,
+            ]);
 
         return $response;
     }

@@ -16,8 +16,8 @@ class TigopesaPushServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/tigopesa-push.php', 'laravel-tigopesa-push');
         $this->publishThings();
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'LaravelTigopesaPush');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/routes.php');
     }
 
     /**
@@ -47,6 +47,10 @@ class TigopesaPushServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__ . '/../config/tigopesa-push.php' => config_path('tigopesa-push.php'),
             ], 'config');
+
+            $this->publishes([
+                __DIR__ . '/database' => database_path(),
+            ], 'migrations');
         }
     }
 }
