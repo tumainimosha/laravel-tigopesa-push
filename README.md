@@ -52,7 +52,9 @@ $success = $response['ResponseStatus'];
 ### Handling callback
 
 When callback is received and processed it fires event `TigopesaCallbackReceivedHandler::class`.
+
 You need to implement your own event listener to listen for this event and do any additional steps after receiving callback.
+
 The event has public attribute `$transaction` which contains the transaction parameters including status
 
 ### Customize config values at runtime
