@@ -12,7 +12,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Tumainimosha\TigopesaPush\Models\TigopesaPushTransaction;
 
-class CallbackReceived implements ShouldQueue
+class TigopesaCallbackReceived implements ShouldQueue
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

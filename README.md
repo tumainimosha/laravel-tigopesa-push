@@ -27,6 +27,7 @@ TZ_TIGOPESA_PUSH_PASSWORD=<your-password>
 TZ_TIGOPESA_PUSH_BILLER_MSISDN=<your-biller-msisdn> # Should start with country code 255 followed by 9 digits. eg: 25565000111
 TZ_TIGOPESA_PUSH_GET_TOKEN_URL=<your-get-token-url>
 TZ_TIGOPESA_PUSH_BILL_PAY_URL=<your-biller-pay-url>
+```
 
 Other configuration can be found in the config file published by this package. The options are well commented :)
 

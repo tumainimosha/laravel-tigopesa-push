@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
-use Tumainimosha\TigopesaPush\Events\CallbackReceived;
+use Tumainimosha\TigopesaPush\Events\TigopesaCallbackReceived;
 use Tumainimosha\TigopesaPush\Models\TigopesaPushTransaction as Transaction;
 use Tumainimosha\TigopesaPush\TigopesaPush;
 
@@ -39,7 +39,7 @@ class CallbackController extends Controller
             ];
 
             // Dispatch callback received event
-            event(new CallbackReceived($transaction));
+            event(new TigopesaCallbackReceived($transaction));
 
         } catch (ModelNotFoundException $e) {
             logger("Callback Error! Transaction with reference $reference not found!");
