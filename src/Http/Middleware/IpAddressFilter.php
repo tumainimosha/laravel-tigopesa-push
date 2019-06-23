@@ -4,7 +4,6 @@ namespace Tumainimosha\TigopesaPush\Http\Middleware;
 
 use Closure;
 use Illuminate\Auth\Access\AuthorizationException;
-use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\HttpFoundation\IpUtils;
 
 class IpAddressFilter
@@ -15,7 +14,6 @@ class IpAddressFilter
      * @var array
      */
     protected $whitelist_ips = [];
-
 
     public function __construct()
     {

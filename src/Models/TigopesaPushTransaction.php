@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class TigopesaPushTransaction
+ * Class TigopesaPushTransaction.
  * @package Tumainimosha\TigopesaPush\Models
  *
  * @property string reference

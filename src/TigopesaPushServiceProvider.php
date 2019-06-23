@@ -16,8 +16,8 @@ class TigopesaPushServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/tigopesa-push.php', 'laravel-tigopesa-push');
         $this->publishThings();
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'LaravelTigopesaPush');
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
-        $this->loadRoutesFrom(__DIR__.'/routes.php');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
     }
 
     /**
@@ -29,15 +29,7 @@ class TigopesaPushServiceProvider extends ServiceProvider
     {
         // Register facade
         $this->app->singleton('tigopesa-push', function () {
-            $service = new TigopesaPush;
-
-            $service->setUsername(config('tigopesa-push.username'))
-                ->setPassword(config('tigopesa-push.password'))
-                ->setBillerMsisdn(config('tigopesa-push.biller_msisdn'))
-                ->setTokenUrl(config('tigopesa-push.token_url'))
-                ->setBillPayUrl(config('tigopesa-push.bill_pay_url'));
-
-            return $service;
+            return TigopesaPush::instance();
         });
     }
 

@@ -30,28 +30,28 @@ return [
 
 
     /**
-     * Route path to receive tigopesa push callback
+     * Route path to receive tigopesa push callback.
      */
     'callback_path' => '/api/tigopesa/callback',
 
     /**
-     * Middleware applied to callback path
+     * Middleware applied to callback path.
      */
     'callback_middleware' => [
         'api',
-        \Tumainimosha\TigopesaPush\Http\Middleware\IpAddressFilter::class
+        \Tumainimosha\TigopesaPush\Http\Middleware\IpAddressFilter::class,
     ],
 
     /**
      * List of IPs whitelisted to send callback
      *  valid values are either
      *      (i) a single IP address eg: 192.168.168.5, OR
-     *      (ii) a subnet block eg: 192.168.168.0/24
+     *      (ii) a subnet block eg: 192.168.168.0/24.
      */
     'whitelist_ips' => [
         //'127.0.0.1', # localhost. Uncomment for dev testing
         '41.222.176.233', # Test
-        '41.222.176.143' # Live
+        '41.222.176.143', # Live
     ],
 
 ];

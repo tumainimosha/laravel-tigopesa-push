@@ -32,8 +32,44 @@ TZ_TIGOPESA_PUSH_BILL_PAY_URL=<your-biller-pay-url>
 Other configuration can be found in the config file published by this package. The options are well commented :)
 
 ## Usage
-@TODO
 
+### Quick start
+
+```php
+use Tumainimosha\TigopesaPush\TigopesaPush;
+
+$customerMsisdn = '255652111222';
+$amount = 1000;
+$txnId = uniqid();
+
+$tigopesaPushService = TigopesaPush::instance();
+$response = $tigopesaPushService->postRequest($customerMsisdn, $amount, $txnId);
+
+/** @var bool $success */
+$success = $response['ResponseStatus'];
+```
+
+### Handling callback
+
+When callback is received and processed it fires event `TigopesaCallbackReceivedHandler::class`.
+You need to implement your own event listener to listen for this event and do any additional steps after receiving callback.
+The event has public attribute `$transaction` which contains the transaction parameters including status
+
+### Customize config values at runtime
+
+The service offers fluent setters to change config values at runtime if your use case requires.
+
+Such a use case could be when you have multiple accounts on the same project, and you fetch your config values from DB.
+
+```php
+$tigopesaPushService = TigopesaPush::instance();
+
+$tigopesaPushService->setUsername($account->username)
+    ->setPassword($account->password)
+    ->setBillerMsisdn($account->business_number)
+    ->setTokenUrl(config('tigopesa-push.token_url'))
+    ->setBillPayUrl(config('tigopesa-push.bill_pay_url'));
+```
 ## Testing
 Run the tests with:
 

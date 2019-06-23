@@ -9,7 +9,6 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use Tumainimosha\TigopesaPush\Events\TigopesaCallbackReceived;
 use Tumainimosha\TigopesaPush\Models\TigopesaPushTransaction as Transaction;
-use Tumainimosha\TigopesaPush\TigopesaPush;
 
 class CallbackController extends Controller
 {
@@ -40,7 +39,6 @@ class CallbackController extends Controller
 
             // Dispatch callback received event
             event(new TigopesaCallbackReceived($transaction));
-
         } catch (ModelNotFoundException $e) {
             logger("Callback Error! Transaction with reference $reference not found!");
 
