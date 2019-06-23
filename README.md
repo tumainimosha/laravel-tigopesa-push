@@ -51,12 +51,34 @@ $success = $response['ResponseStatus'];
 
 ### Handling callback
 
-When callback is received and processed it fires event `TigopesaCallbackReceivedHandler::class`.
+Out of the box, this package stores transactions in table `tigopesa_push_transactions`, and updates their status on receiving callback.
+
+However, you may need to do further actions on your app after receiving callback, by listening to event `TigopesaCallbackReceivedHandler::class` fired at callback.
 
 You need to implement your own event listener to listen for this event and do any additional steps after receiving callback.
 
 The event has public attribute `$transaction` which contains the transaction parameters including status
 
+```php
+// EventServiceProvider.php
+
+protected $listen = [
+    ...
+    \Tumainimosha\TigopesaPush\Events\TigopesaCallbackReceived::class => [
+        \App\Listeners\TigopesaCallbackReceivedHandler::class,
+    ],
+];
+
+// TigopesaCallbackReceivedHandler.php
+
+public function handle(TigopesaCallbackReceived $event)
+{
+    $transaction = $event->transaction;
+    
+    // do your custom logic here
+}
+
+```
 ### Customize config values at runtime
 
 The service offers fluent setters to change config values at runtime if your use case requires.
