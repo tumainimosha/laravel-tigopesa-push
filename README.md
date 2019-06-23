@@ -15,6 +15,12 @@ Publish config file to customize the default package config.
 php artisan vendor:publish --provider="Tumainimosha\TigopesaPush\TigopesaPushServiceProvider" --tag="config"
 ```
 
+### Run migration
+
+```bash
+php artisan migrate
+```
+
 ## Configuration
 
 ### Authentication
