@@ -27,10 +27,20 @@ class HttpHandler
             $options['headers'] = $headers;
         }
 
+        logger('Tigopesa Request', [
+            'url' => $url,
+            'options' => $options,
+        ]);
+
         $client = new Client();
         $responseObj = $client->post($url, $options);
 
         $content = $responseObj->getBody()->getContents();
+
+        logger('Tigopesa Response', [
+            'statusCode' => $responseObj->getStatusCode(),
+            'content' => $content,
+        ]);
 
         return json_decode($content, true);
     }
