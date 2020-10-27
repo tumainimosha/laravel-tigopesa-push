@@ -110,6 +110,8 @@ vendor/bin/phpunit
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
+** Help needed with improving documentation and unit testing. Pull Requests are welcome.
+
 ## Security
 If you discover any security-related issues, please email instead of using the issue tracker.
 
