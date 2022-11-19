@@ -136,7 +136,7 @@ class TigopesaPush
         $response = (new HttpHandler)->post($this->tokenUrl, $request);
 
         if (isset($response['access_token'])) {
-            $expiresAt = (new DateTime())->modify('+' + $response['expires_in'] + ' seconds');
+            $expiresAt = (new DateTime())->modify('+' . $response['expires_in'] . ' seconds');
             
             $objToken = [
                 'access_token' => $response['access_token'],
