@@ -2,7 +2,9 @@
 
 namespace Tumainimosha\TigopesaPush;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 use Tumainimosha\TigopesaPush\Exceptions\Exception;
 use Tumainimosha\TigopesaPush\Handlers\HttpHandler;
 use Tumainimosha\TigopesaPush\Models\TigopesaPushTransaction as Transaction;
@@ -104,6 +106,26 @@ class TigopesaPush
      */
     protected function getToken()
     {
+        $objToken = [
+            'access_token' => '',
+            'expires_in' => '',
+            'expires_at' => '',
+        ];
+
+        $cacheKey = 'tigopesa-push-token';
+        $strTokenContent = Cache::get($cacheKey, null);
+        if($strTokenContent) {
+            $objToken = json_decode($strTokenContent, true);
+        }
+
+        if(Arr::get($objToken, 'expires_at')) {
+            $expiresAt = DateTime::createFromFormat(DateTime::ISO8601, $objToken['expires_at']);
+            $now = new DateTime();
+            if($expiresAt > $now->modify('+30 seconds')) {
+                return $objToken;
+            }
+        }
+
         $request = [
             'username' => $this->username,
             'password' => $this->password,
@@ -113,7 +135,19 @@ class TigopesaPush
         $response = (new HttpHandler)->post($this->tokenUrl, $request);
 
         if (isset($response['access_token'])) {
-            return $response;
+            $expiresAt = (new DateTime())->modify('+' + $response['expires_in'] + ' seconds');
+            
+            $objToken = [
+                'access_token' => $response['access_token'],
+                'expires_in' => $response['access_token'],
+                'expires_at' => $expiresAt->format(DateTime::ISO8601),
+            ];
+
+            $strTokenContent = json_encode($objToken);
+
+            Cache::put($cacheKey, $strTokenContent, $expiresAt);
+
+            return $objToken;
         }
 
         throw Exception::authenticationError($response);
